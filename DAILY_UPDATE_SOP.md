@@ -5,7 +5,8 @@ This dashboard is intentionally manual-first.
 ## Normal use
 
 1. Open the GitHub Pages dashboard link in Chrome.
-2. Click `Reload data` in the page if you want to refetch the latest `final.json`.
+2. Click `Reload published data` in the page if you want to refetch the latest deployed `final.json`.
+3. Do not expect that button to generate new section data. It only refetches what has already been published.
 
 ## Manual content update
 
@@ -24,6 +25,8 @@ Edit [data/auto.json](/C:/Users/User/Documents/Claude%20Code/Finance%20Dashboard
 - S5 ticker events
 - S6 potential/tail-risk events
 - S8 PBOC gold data
+
+The matching JSON keys are `sections.s4`, `sections.s5`, `sections.s6`, and `sections.s8`.
 
 Or extend [scripts/update_dashboard.py](/C:/Users/User/Documents/Claude%20Code/Finance%20Dashboard/scripts/update_dashboard.py) to fetch those sections from preferred sources.
 
@@ -50,8 +53,9 @@ If Python is unavailable on the current machine, make the same change from a mac
 1. Open the repository on GitHub.
 2. Go to `Actions`.
 3. Run `Refresh Dashboard Data`.
-4. The workflow regenerates `data/final.json`, commits it if it changed, deploys the Pages site in the same run, and then smoke-tests the live hosted URL.
-5. Refresh the dashboard page in Chrome.
+4. Use that workflow only after the source JSON is already updated in the repo. It republishes the current repo data; it does not fetch fresh S4, S5, S6, or S8 content by itself.
+5. The workflow regenerates `data/final.json`, commits it if it changed, deploys the Pages site in the same run, and then smoke-tests the live hosted URL.
+6. Refresh the dashboard page in Chrome.
 
 ## Operating principles
 

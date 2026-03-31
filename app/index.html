@@ -9,15 +9,22 @@
 <body>
   <div class="page-shell">
     <header class="hero">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow">Finance Dashboard</p>
         <h1 id="dashboard-title">Loading dashboard...</h1>
         <p id="dashboard-summary" class="hero-summary"></p>
       </div>
-      <div class="hero-actions">
-        <button id="reload-button" type="button">Reload data</button>
-        <a id="manual-link" href="../data/manual.json" target="_blank" rel="noreferrer">Manual JSON</a>
-        <a id="auto-link" href="../data/auto.json" target="_blank" rel="noreferrer">Auto JSON</a>
+      <div class="hero-side">
+        <div class="hero-actions">
+          <button id="reload-button" type="button">Reload published data</button>
+          <a id="workflow-link" class="button-like" href="#" target="_blank" rel="noreferrer">Publish workflow</a>
+        </div>
+        <p id="reload-status" class="reload-status" aria-live="polite"></p>
+        <div class="source-links">
+          <a id="manual-link" href="../data/manual.json" target="_blank" rel="noreferrer">Manual JSON</a>
+          <a id="auto-link" href="../data/auto.json" target="_blank" rel="noreferrer">Auto JSON</a>
+        </div>
+        <section id="refresh-guide" class="refresh-guide"></section>
       </div>
     </header>
 

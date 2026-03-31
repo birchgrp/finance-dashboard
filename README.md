@@ -50,7 +50,7 @@ It:
 
 - fetches `data/final.json`
 - renders the dashboard sections
-- supports a manual in-page reload
+- supports a manual in-page reload of the published payload
 - avoids browser-side AI refresh logic
 
 ## Local usage
@@ -117,7 +117,8 @@ The intended viewing path is the hosted GitHub Pages link.
 
 - open the repository's Pages URL in Chrome
 - the site root redirects to the dashboard
-- use the in-page `Reload data` button to refetch the current `final.json`
+- use the in-page `Reload published data` button to refetch the current deployed `final.json`
+- sections 4, 5, 6, and 8 only change after `data/auto.json` is updated in the repo and republished
 
 Both publish workflows now run lightweight hosted smoke tests against the live Pages URL. The checks cover:
 

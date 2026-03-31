@@ -1,4 +1,10 @@
 const DATA_URL = "../data/final.json";
+const DEFAULT_REPO = {
+  owner: "birchgrp",
+  repo: "finance-dashboard",
+  branch: "main",
+};
+const AUTO_SECTION_KEYS = new Set(["s4", "s5", "s6", "s8"]);
 
 const sectionAccentClass = {
   "01": "section-accent-gold",
@@ -15,17 +21,48 @@ const metaPanel = document.querySelector("#meta-panel");
 const titleEl = document.querySelector("#dashboard-title");
 const summaryEl = document.querySelector("#dashboard-summary");
 const reloadButton = document.querySelector("#reload-button");
+const workflowLink = document.querySelector("#workflow-link");
+const reloadStatus = document.querySelector("#reload-status");
+const refreshGuide = document.querySelector("#refresh-guide");
+
+let currentGeneratedAt = null;
+
+const repoContext = resolveRepoContext();
+const repoUrl = `https://github.com/${repoContext.owner}/${repoContext.repo}`;
+const autoSourceUrl = `${repoUrl}/blob/${repoContext.branch}/data/auto.json`;
+const autoEditUrl = `${repoUrl}/edit/${repoContext.branch}/data/auto.json`;
+const refreshWorkflowUrl = `${repoUrl}/actions/workflows/refresh-dashboard.yml`;
+
+workflowLink.href = refreshWorkflowUrl;
 
 reloadButton.addEventListener("click", async () => {
   reloadButton.disabled = true;
   reloadButton.textContent = "Reloading...";
+  setReloadStatus("Checking the latest deployed dashboard payload...", "neutral");
   try {
-    await renderDashboard({ bustCache: true });
+    await renderDashboard({ bustCache: true, manualReload: true });
   } finally {
     reloadButton.disabled = false;
-    reloadButton.textContent = "Reload data";
+    reloadButton.textContent = "Reload published data";
   }
 });
+
+renderRefreshGuide();
+
+function resolveRepoContext() {
+  const host = window.location.hostname || "";
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+
+  if (host.endsWith(".github.io") && pathParts.length > 0) {
+    return {
+      owner: host.replace(".github.io", ""),
+      repo: pathParts[0],
+      branch: DEFAULT_REPO.branch,
+    };
+  }
+
+  return DEFAULT_REPO;
+}
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -44,7 +81,23 @@ function formatDate(dateString) {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "Asia/Singapore",
   }).format(date);
+}
+
+function formatDateTime(dateString) {
+  if (!dateString) return "Unknown";
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return dateString;
+  return `${new Intl.DateTimeFormat("en-SG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Singapore",
+  }).format(date)} SGT`;
 }
 
 function daysUntil(dateString) {
@@ -54,6 +107,11 @@ function daysUntil(dateString) {
   const target = new Date(`${dateString}T00:00:00`);
   if (Number.isNaN(target.getTime())) return null;
   return Math.ceil((target - today) / 86400000);
+}
+
+function setReloadStatus(message, tone = "neutral") {
+  reloadStatus.textContent = message;
+  reloadStatus.dataset.tone = tone;
 }
 
 function countdownPill(dateString, fallbackLabel = "Ongoing") {
@@ -76,17 +134,32 @@ function impactPill(level) {
 }
 
 function trendGlyph(trend) {
-  if (trend === "up") return '<span class="trend-up">▲</span>';
-  if (trend === "down") return '<span class="trend-down">▼</span>';
-  return '<span class="trend-flat">■</span>';
+  if (trend === "up") return '<span class="trend-up">&#9650;</span>';
+  if (trend === "down") return '<span class="trend-down">&#9660;</span>';
+  return '<span class="trend-flat">&#9632;</span>';
+}
+
+function renderRefreshGuide() {
+  refreshGuide.innerHTML = `
+    <p class="refresh-guide-title">How sections 04 to 08 refresh now</p>
+    <ul class="refresh-guide-list">
+      <li><strong>Reload published data</strong> only refetches the latest deployed <code>final.json</code>.</li>
+      <li>Sections <code>04</code>, <code>05</code>, <code>06</code>, and <code>08</code> are sourced from <code>data/auto.json</code>.</li>
+      <li>To update one of them, edit the matching entry in <code>auto.json</code>, publish that repo change, then reload the dashboard here.</li>
+    </ul>
+    <div class="section-action-row">
+      <a class="button-like button-like-secondary" href="${escapeHtml(autoEditUrl)}" target="_blank" rel="noreferrer">Edit auto.json</a>
+      <a class="button-like button-like-secondary" href="${escapeHtml(refreshWorkflowUrl)}" target="_blank" rel="noreferrer">Open publish workflow</a>
+    </div>
+  `;
 }
 
 function renderMetaCards(data) {
   const cards = [
-    ["Generated", data.generatedAt || "Unknown"],
+    ["Generated", formatDateTime(data.generatedAt || "Unknown")],
     ["Manual Updated", data.sources?.manualUpdatedAt || "Unknown"],
     ["Auto Updated", data.sources?.autoUpdatedAt || "Unknown"],
-    ["Manual Refresh", data.refresh?.mode || "Unknown"],
+    ["Refresh Mode", data.refresh?.mode || "Unknown"],
   ];
 
   metaPanel.innerHTML = cards
@@ -101,11 +174,40 @@ function renderMetaCards(data) {
     .join("");
 }
 
-function sectionFrame(section, innerHtml) {
+function renderSectionFooter(section, sectionKey) {
+  const blocks = [];
+
+  if (section.sourceNote) {
+    blocks.push(`<p class="source-note">${escapeHtml(section.sourceNote)}</p>`);
+  }
+
+  if (AUTO_SECTION_KEYS.has(sectionKey)) {
+    blocks.push(`
+      <p class="section-refresh-note">
+        Refresh this section by editing <code>sections.${escapeHtml(sectionKey)}</code> in <code>data/auto.json</code>,
+        publishing the repo change, then using <strong>Reload published data</strong>.
+      </p>
+    `);
+    blocks.push(`
+      <div class="section-action-row">
+        <a class="button-like button-like-secondary" href="${escapeHtml(autoSourceUrl)}" target="_blank" rel="noreferrer">View auto source</a>
+        <a class="button-like button-like-secondary" href="${escapeHtml(refreshWorkflowUrl)}" target="_blank" rel="noreferrer">Publish changes</a>
+      </div>
+    `);
+  }
+
+  if (!blocks.length) {
+    return "";
+  }
+
+  return `<div class="source-strip">${blocks.join("")}</div>`;
+}
+
+function sectionFrame(section, sectionKey, innerHtml) {
   return `
     <section class="card ${sectionAccentClass[section.number] || ""}">
       <div class="card-header">
-        <div>
+        <div class="card-header-copy">
           <span class="section-number">${escapeHtml(section.number)}</span>
           <h2 class="card-title">${escapeHtml(section.title)}</h2>
           <p class="card-subtitle">${escapeHtml(section.subtitle || "")}</p>
@@ -115,12 +217,12 @@ function sectionFrame(section, innerHtml) {
         </div>
       </div>
       ${innerHtml}
-      ${section.sourceNote ? `<div class="source-strip">${escapeHtml(section.sourceNote)}</div>` : ""}
+      ${renderSectionFooter(section, sectionKey)}
     </section>
   `;
 }
 
-function renderManualTable(section, columns, rows) {
+function renderManualTable(sectionKey, section, columns, rows) {
   const table = rows.length
     ? `
       <table class="table">
@@ -144,10 +246,10 @@ function renderManualTable(section, columns, rows) {
     `
     : document.querySelector("#empty-state-template").innerHTML;
 
-  return sectionFrame(section, table);
+  return sectionFrame(section, sectionKey, table);
 }
 
-function renderEventsSection(section, items) {
+function renderEventsSection(sectionKey, section, items) {
   const body = items.length
     ? `
       <div class="event-list">
@@ -156,7 +258,7 @@ function renderEventsSection(section, items) {
             (item) => `
               <article class="event-item">
                 <div class="event-topline">
-                  <div>
+                  <div class="event-copy">
                     <p class="item-title">${escapeHtml(item.event)}</p>
                     <p class="item-meta">${escapeHtml(item.label || formatDate(item.date))}${item.tickers ? ` | ${escapeHtml(item.tickers)}` : ""}</p>
                     ${item.timeSgt ? `<p class="item-note">${escapeHtml(item.timeSgt)}</p>` : ""}
@@ -175,10 +277,10 @@ function renderEventsSection(section, items) {
     `
     : document.querySelector("#empty-state-template").innerHTML;
 
-  return sectionFrame(section, body);
+  return sectionFrame(section, sectionKey, body);
 }
 
-function renderPotentialSection(section, items) {
+function renderPotentialSection(sectionKey, section, items) {
   const body = items.length
     ? `
       <div class="event-list">
@@ -187,13 +289,13 @@ function renderPotentialSection(section, items) {
             (item) => `
               <article class="event-item">
                 <div class="event-topline">
-                  <div>
+                  <div class="event-copy">
                     <p class="item-title">${trendGlyph(item.trend)} ${escapeHtml(item.event)}</p>
                     ${item.note ? `<p class="item-note">${escapeHtml(item.note)}</p>` : ""}
                   </div>
                   <div class="badge-row">
                     <span class="pill">${escapeHtml(item.odds || "---")}</span>
-                    ${item.link ? `<a class="button-like" href="${escapeHtml(item.link)}" target="_blank" rel="noreferrer">Source</a>` : ""}
+                    ${item.link ? `<a class="button-like button-like-secondary" href="${escapeHtml(item.link)}" target="_blank" rel="noreferrer">Source</a>` : ""}
                   </div>
                 </div>
               </article>
@@ -204,10 +306,10 @@ function renderPotentialSection(section, items) {
     `
     : document.querySelector("#empty-state-template").innerHTML;
 
-  return sectionFrame(section, body);
+  return sectionFrame(section, sectionKey, body);
 }
 
-function renderGoldSection(section, items, summary) {
+function renderGoldSection(sectionKey, section, items, summary) {
   const summaryRow = `
     <div class="badge-row">
       <span class="badge">Latest reserves: ${escapeHtml(summary?.latestReserves ?? "--")}</span>
@@ -224,7 +326,7 @@ function renderGoldSection(section, items, summary) {
             (item) => `
               <article class="gold-item">
                 <div class="gold-topline">
-                  <div>
+                  <div class="event-copy">
                     <p class="item-title">${escapeHtml(item.month)}</p>
                     <p class="item-meta">${escapeHtml(formatDate(item.date))}</p>
                   </div>
@@ -243,10 +345,10 @@ function renderGoldSection(section, items, summary) {
     `
     : document.querySelector("#empty-state-template").innerHTML;
 
-  return sectionFrame(section, `${summaryRow}${list}`);
+  return sectionFrame(section, sectionKey, `${summaryRow}${list}`);
 }
 
-function renderNotes(section, notes) {
+function renderNotes(sectionKey, section, notes) {
   const body = notes.length
     ? `
       <div class="note-list">
@@ -264,20 +366,20 @@ function renderNotes(section, notes) {
     `
     : document.querySelector("#empty-state-template").innerHTML;
 
-  return sectionFrame(section, body);
+  return sectionFrame(section, sectionKey, body);
 }
 
 function renderSections(data) {
   const sections = data.sections || {};
   appRoot.innerHTML = [
-    renderManualTable(sections.s1, sections.s1.columns, sections.s1.rows),
-    renderManualTable(sections.s2, sections.s2.columns, sections.s2.rows),
-    renderManualTable(sections.s3, sections.s3.columns, sections.s3.rows),
-    renderEventsSection(sections.s4, sections.s4.items),
-    renderEventsSection(sections.s5, sections.s5.items),
-    renderPotentialSection(sections.s6, sections.s6.items),
-    renderGoldSection(sections.s8, sections.s8.items, sections.s8.summary),
-    renderNotes(sections.notes, sections.notes.items),
+    renderManualTable("s1", sections.s1, sections.s1.columns, sections.s1.rows),
+    renderManualTable("s2", sections.s2, sections.s2.columns, sections.s2.rows),
+    renderManualTable("s3", sections.s3, sections.s3.columns, sections.s3.rows),
+    renderEventsSection("s4", sections.s4, sections.s4.items),
+    renderEventsSection("s5", sections.s5, sections.s5.items),
+    renderPotentialSection("s6", sections.s6, sections.s6.items),
+    renderGoldSection("s8", sections.s8, sections.s8.items, sections.s8.summary),
+    renderNotes("notes", sections.notes, sections.notes.items),
   ].join("");
 }
 
@@ -290,18 +392,32 @@ async function loadData({ bustCache = false } = {}) {
   return response.json();
 }
 
-async function renderDashboard({ bustCache = false } = {}) {
+async function renderDashboard({ bustCache = false, manualReload = false } = {}) {
   try {
+    const previousGeneratedAt = currentGeneratedAt;
     const data = await loadData({ bustCache });
+    currentGeneratedAt = data.generatedAt || null;
+
     titleEl.textContent = data.title || "Finance Dashboard";
     summaryEl.textContent = data.summary || "";
     renderMetaCards(data);
     renderSections(data);
+
+    if (manualReload) {
+      if (previousGeneratedAt && previousGeneratedAt !== currentGeneratedAt) {
+        setReloadStatus(`Loaded a newer published build from ${formatDateTime(currentGeneratedAt)}.`, "success");
+      } else {
+        setReloadStatus(`Reloaded the current published build. No newer deploy was detected.`, "neutral");
+      }
+    } else {
+      setReloadStatus(`Published data last generated ${formatDateTime(currentGeneratedAt)}.`, "neutral");
+    }
   } catch (error) {
     titleEl.textContent = "Finance Dashboard";
     summaryEl.textContent = "The dashboard data could not be loaded.";
     metaPanel.innerHTML = "";
     appRoot.innerHTML = `<div class="error-state">${escapeHtml(error.message)}</div>`;
+    setReloadStatus("Could not load the published dashboard data.", "error");
   }
 }
 

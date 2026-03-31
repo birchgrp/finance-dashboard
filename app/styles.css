@@ -59,7 +59,7 @@ a.button-like:hover {
 }
 
 .page-shell {
-  width: min(1220px, calc(100vw - 32px));
+  width: min(1420px, calc(100vw - 32px));
   margin: 0 auto;
   padding: 28px 0 48px;
 }
@@ -98,11 +98,70 @@ a.button-like:hover {
   line-height: 1.6;
 }
 
+.hero-side {
+  min-width: min(100%, 420px);
+  display: grid;
+  gap: 12px;
+  justify-items: end;
+}
+
 .hero-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+.source-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.reload-status {
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.reload-status[data-tone="success"] {
+  color: var(--green);
+}
+
+.reload-status[data-tone="error"] {
+  color: var(--red);
+}
+
+.refresh-guide {
+  width: min(100%, 460px);
+  padding: 16px 18px;
+  border: 1px solid rgba(123, 163, 215, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.refresh-guide-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.refresh-guide-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.refresh-guide code,
+.section-refresh-note code {
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.9em;
 }
 
 .meta-panel {
@@ -134,25 +193,30 @@ a.button-like:hover {
 }
 
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 18px;
 }
 
 .card {
+  width: 100%;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 24px 26px;
   box-shadow: var(--shadow);
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 18px;
   align-items: flex-start;
   margin-bottom: 16px;
+}
+
+.card-header-copy {
+  flex: 1;
 }
 
 .section-number {
@@ -262,7 +326,7 @@ a.button-like:hover {
 .note-item,
 .event-item,
 .gold-item {
-  padding: 14px;
+  padding: 16px 18px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(123, 163, 215, 0.12);
@@ -272,13 +336,19 @@ a.button-like:hover {
 .gold-topline {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-start;
+}
+
+.event-copy {
+  flex: 1;
+  min-width: 0;
 }
 
 .item-title {
   margin: 0 0 0.35rem;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
+  line-height: 1.4;
 }
 
 .item-meta,
@@ -293,8 +363,30 @@ a.button-like:hover {
   margin-top: 16px;
   padding-top: 14px;
   border-top: 1px solid rgba(123, 163, 215, 0.12);
+}
+
+.source-note,
+.section-refresh-note {
+  margin: 0;
   color: var(--soft);
-  font-size: 0.82rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.section-refresh-note {
+  margin-top: 0.65rem;
+}
+
+.section-action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+.button-like-secondary {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.88rem;
 }
 
 .empty-state,
@@ -335,10 +427,26 @@ a.button-like:hover {
     flex-direction: column;
   }
 
+  .hero-side {
+    min-width: 100%;
+    justify-items: stretch;
+  }
+
   .hero-actions {
     justify-content: flex-start;
   }
 
+  .source-links,
+  .reload-status {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .refresh-guide {
+    width: 100%;
+  }
+
+  .card-header,
   .event-topline,
   .gold-topline {
     flex-direction: column;

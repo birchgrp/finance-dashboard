@@ -16,6 +16,9 @@
 - Manual refresh workflow regenerates `data/final.json`, commits it if changed, deploys Pages, and smoke-tests the live site in the same run.
 - Root Pages URL redirects or hands off to `/app/`, while `/app/` and `/data/` are published directly.
 - Hosted smoke tests check `/`, `/app/`, `/data/final.json`, `/data/manual.json`, and `/data/auto.json`.
+- Dashboard sections now render as single full-width rows instead of a 3-column card grid.
+- The hero now distinguishes between reloading published JSON and actually updating repo-backed source data.
+- Auto-backed sections (`04`, `05`, `06`, `08`) now include in-card guidance and links for editing `data/auto.json` and republishing changes.
 
 ## Deployment / Pages Status
 
@@ -49,12 +52,13 @@
 - Local Python is not available in the current desktop workspace PATH, so Python scripts were not executed locally here.
 - Hosted smoke tests verify availability and basic structure, not full browser interaction.
 - There is still an unrelated untracked repo file named `Migration from Claude/dashboard.jsx` that has intentionally been left alone.
+- There is currently no automated source fetcher for sections `04`, `05`, `06`, or `08`; changing those sections still requires editing `data/auto.json` or extending `scripts/update_dashboard.py`.
 
 ## Next Recommended Refinements
 
 - Run the updated GitHub workflows once and confirm smoke tests pass end-to-end on the live Pages site.
+- If desired later, add scripted refreshers for `sections.s4`, `sections.s5`, `sections.s6`, and `sections.s8` so the manual publish workflow can update source data rather than only republish it.
 - If desired later, factor the duplicated Pages artifact build steps into a simpler shared pattern, but only if it stays readable.
-- Consider adding a tiny documented process for refreshing `auto.json` from preferred sources if manual refresh volume increases.
 
 ## How To Resume In A New Codex Session
 
