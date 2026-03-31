@@ -1,0 +1,62 @@
+{
+  "updatedAt": "2026-03-31",
+  "title": "Finance Dashboard",
+  "summary": "Manual-first market dashboard with a hosted static frontend, repo-based data, and a simple merge workflow.",
+  "sections": {
+    "s1": {
+      "title": "Tickers To Focus For Dip",
+      "subtitle": "",
+      "columns": [
+        { "key": "theme", "label": "Theme" },
+        { "key": "tickers", "label": "Tickers" },
+        { "key": "stance", "label": "Stance" }
+      ],
+      "rows": [
+        { "theme": "Korea", "tickers": "EWY", "stance": "Buy" },
+        { "theme": "Memory", "tickers": "Samsung / Hynix / Micron", "stance": "Buy" }
+      ]
+    },
+    "s2": {
+      "title": "To Research",
+      "subtitle": "Due diligence ideas to revisit manually",
+      "columns": [
+        { "key": "theme", "label": "Theme" },
+        { "key": "tickers", "label": "Tickers" }
+      ],
+      "rows": [
+        { "theme": "Citrini", "tickers": "LASR" }
+      ]
+    },
+    "s3": {
+      "title": "Watchlist",
+      "subtitle": "Wait for dip",
+      "columns": [
+        { "key": "theme", "label": "Theme" },
+        { "key": "tickers", "label": "Tickers" },
+        { "key": "priority", "label": "Priority" }
+      ],
+      "rows": [
+        { "theme": "Space", "tickers": "ASTS / RKLB / FLY", "priority": "P2" },
+        { "theme": "Energy", "tickers": "TE?", "priority": "P3" },
+        { "theme": "Drones", "tickers": "ONDS", "priority": "P3" },
+        { "theme": "Robotics", "tickers": "9880", "priority": "P3" },
+        { "theme": "PM", "tickers": "Gold / Copper / URA", "priority": "P2" },
+        { "theme": "Crypto", "tickers": "CRCL", "priority": "P3" }
+      ]
+    },
+    "notes": {
+      "title": "Operating Notes",
+      "subtitle": "Human-maintained context for future sessions",
+      "items": [
+        {
+          "title": "Architecture direction",
+          "body": "This dashboard now treats JSON files as the source of truth. Frontend rendering, manual content, and auto-refresh logic are intentionally separated."
+        },
+        {
+          "title": "Refresh policy",
+          "body": "No scheduled refresh is required. Manual refresh is the primary workflow, either by editing JSON and rerunning the script or by using the manual GitHub Action."
+        }
+      ]
+    }
+  }
+}

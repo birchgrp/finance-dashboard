@@ -1,0 +1,66 @@
+{
+  "updatedAt": "2026-03-31",
+  "sections": {
+    "s4": {
+      "title": "Scheduled Events",
+      "subtitle": "Market-wide macro",
+      "sourceNote": "Imported from the legacy dashboard snapshot. Refresh manually when needed.",
+      "items": [
+        { "id": "s4-0", "date": "2026-03-06", "label": "Mar 6", "event": "Non-Farm Payrolls (Feb)", "impact": "high" },
+        { "id": "s4-1", "date": "2026-03-11", "label": "Mar 11", "event": "CPI Release (Feb) - 8:30 AM ET", "impact": "high", "timeSgt": "8:30 PM SGT" },
+        { "id": "s4-2", "date": "2026-03-12", "label": "Mar 12", "event": "PPI Release (Feb)", "impact": "medium" },
+        { "id": "s4-3", "date": "2026-03-14", "label": "Mar 14", "event": "UMich Consumer Sentiment (Prelim)", "impact": "medium" },
+        { "id": "s4-4", "date": "2026-03-16", "label": "Mar 16", "event": "Industrial Production", "impact": "low" },
+        { "id": "s4-5", "date": "2026-03-17", "label": "Mar 17-18", "event": "FOMC Meeting + Press Conference + SEP/Dot Plot", "impact": "high" },
+        { "id": "s4-6", "date": "2026-03-20", "label": "Mar 20", "event": "Philly Fed Manufacturing Index", "impact": "low" },
+        { "id": "s4-7", "date": "2026-03-25", "label": "Mar 25", "event": "Consumer Confidence (Mar)", "impact": "medium" },
+        { "id": "s4-8", "date": "2026-03-27", "label": "Mar 27", "event": "GDP (Q4 Final)", "impact": "medium" },
+        { "id": "s4-9", "date": "2026-03-28", "label": "Mar 28", "event": "PCE Price Index (Feb) - Fed preferred inflation gauge", "impact": "high" },
+        { "id": "s4-10", "date": "2026-05-06", "label": "May 6-7", "event": "FOMC Meeting", "impact": "high" }
+      ]
+    },
+    "s5": {
+      "title": "Scheduled Events",
+      "subtitle": "Ticker-specific",
+      "sourceNote": "Derived from the legacy watchlist-driven event section.",
+      "items": [
+        { "id": "s5-0", "date": "2026-03-07", "label": "Mar 7", "event": "Samsung Electronics - Q4 2025 Guidance / Outlook Update", "tickers": "Samsung", "impact": "medium" },
+        { "id": "s5-1", "date": "2026-03-18", "label": "Mar 18", "event": "Micron (MU) FQ2 2026 Earnings - 4:30 PM ET", "tickers": "Micron", "impact": "high", "timeSgt": "4:30 AM SGT" },
+        { "id": "s5-2", "date": "2026-05-11", "label": "May 11", "event": "AST SpaceMobile (ASTS) Q1 2026 Earnings", "tickers": "ASTS", "impact": "medium" },
+        { "id": "s5-3", "date": "2026-03-02", "label": "Mar 2 done", "event": "ASTS Q4 2025 - EPS -$0.26 (missed -$0.19). Revenue guided ~$1B in 2027.", "tickers": "ASTS", "impact": "low" },
+        { "id": "s5-4", "date": null, "label": "Q4 2026", "event": "Rocket Lab Neutron first launch target (delayed from H1)", "tickers": "RKLB", "impact": "high" },
+        { "id": "s5-5", "date": null, "label": "Ongoing", "event": "SK Hynix HBM4 shipping Q4 2026 - all DRAM/HBM/NAND sold out through 2026", "tickers": "Hynix", "impact": "medium" },
+        { "id": "s5-6", "date": null, "label": "Ongoing", "event": "Memory supercycle - AI-driven HBM demand tightening supply", "tickers": "Memory", "impact": "high" },
+        { "id": "s5-7", "date": null, "label": "Ongoing", "event": "Gold elevated amid geopolitical risk; copper rising with AI data center buildout", "tickers": "Gold / Copper", "impact": "medium" }
+      ]
+    },
+    "s6": {
+      "title": "Potential Events",
+      "subtitle": "Tail risks and prediction-market context",
+      "sourceNote": "Legacy Polymarket-style tail-risk list preserved as initial seed data.",
+      "items": [
+        { "id": "s6-0", "event": "US Recession by End of 2026", "odds": "23%", "link": "https://polymarket.com/event/us-recession-2026", "trend": "up" },
+        { "id": "s6-1", "event": "US-Iran War Escalation / Continued Strikes", "odds": "Active", "link": "https://polymarket.com/geopolitics", "trend": "up", "note": "US/Israel struck Iran Feb 28. Khamenei killed. Retaliation ongoing." },
+        { "id": "s6-2", "event": "Fed Rate Hike in 2026", "odds": "11%", "link": "https://polymarket.com/dashboards/macro", "trend": "flat" },
+        { "id": "s6-3", "event": "Russia-Ukraine Ceasefire by Mar 31", "odds": "4%", "link": "https://polymarket.com/predictions/macro-geopolitics", "trend": "down" },
+        { "id": "s6-4", "event": "US Invade Latin American Country in 2026", "odds": "25%", "link": "https://polymarket.com/geopolitics", "trend": "flat", "note": "Post-Maduro capture, ongoing Venezuela situation." },
+        { "id": "s6-5", "event": "Negative GDP Growth in 2026", "odds": "10%", "link": "https://polymarket.com/dashboards/macro", "trend": "flat" },
+        { "id": "s6-6", "event": "Xi Jinping Out Before 2027", "odds": "9%", "link": "https://polymarket.com/predictions/macro-geopolitics", "trend": "flat" },
+        { "id": "s6-7", "event": "Trump Tariff Escalation / Trade War Widening", "odds": "---", "link": "https://polymarket.com", "trend": "up", "note": "Ongoing tariff actions. Watch for China retaliation." }
+      ]
+    },
+    "s8": {
+      "title": "PBOC Gold Reserves",
+      "subtitle": "China central bank monthly purchases",
+      "sourceNote": "Imported from the legacy SAFE/PBOC panel.",
+      "items": [
+        { "id": "s8-0", "month": "Feb 2026", "date": "2026-02-28", "tonnes": 0.93, "totalReserves": 2309.0, "status": "bought" },
+        { "id": "s8-1", "month": "Jan 2026", "date": "2026-01-31", "tonnes": 1.2, "totalReserves": 2308.0, "status": "bought" },
+        { "id": "s8-2", "month": "Dec 2025", "date": "2025-12-31", "tonnes": 0.9, "totalReserves": 2306.0, "status": "bought" },
+        { "id": "s8-3", "month": "Nov 2025", "date": "2025-11-30", "tonnes": 0.9, "totalReserves": 2305.0, "status": "bought" },
+        { "id": "s8-4", "month": "Oct 2025", "date": "2025-10-31", "tonnes": 0.9, "totalReserves": 2304.5, "status": "bought" },
+        { "id": "s8-5", "month": "Sep 2025", "date": "2025-09-30", "tonnes": 1.2, "totalReserves": 2303.0, "status": "bought" }
+      ]
+    }
+  }
+}
