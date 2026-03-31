@@ -1,0 +1,448 @@
+{
+  "title": "Finance Dashboard",
+  "summary": "Static dashboard built for GitHub Pages, manual refreshes, and future AI-friendly maintenance.",
+  "generatedAt": "2026-03-31T00:00:00Z",
+  "sources": {
+    "manualUpdatedAt": "2026-03-31",
+    "autoUpdatedAt": "2026-03-31"
+  },
+  "refresh": {
+    "mode": "Manual only",
+    "notes": [
+      "Edit manual.json for hand-maintained sections.",
+      "Edit auto.json or extend update_dashboard.py for refresh-generated sections.",
+      "Regenerate final.json after updates."
+    ]
+  },
+  "sections": {
+    "s1": {
+      "number": "01",
+      "title": "Tickers To Focus For Dip",
+      "subtitle": "",
+      "badges": [
+        "Manual"
+      ],
+      "columns": [
+        {
+          "key": "theme",
+          "label": "Theme"
+        },
+        {
+          "key": "tickers",
+          "label": "Tickers"
+        },
+        {
+          "key": "stance",
+          "label": "Stance"
+        }
+      ],
+      "rows": [
+        {
+          "theme": "Korea",
+          "tickers": "EWY",
+          "stance": "Buy"
+        },
+        {
+          "theme": "Memory",
+          "tickers": "Samsung / Hynix / Micron",
+          "stance": "Buy"
+        }
+      ]
+    },
+    "s2": {
+      "number": "02",
+      "title": "To Research",
+      "subtitle": "Due diligence ideas to revisit manually",
+      "badges": [
+        "Manual"
+      ],
+      "columns": [
+        {
+          "key": "theme",
+          "label": "Theme"
+        },
+        {
+          "key": "tickers",
+          "label": "Tickers"
+        }
+      ],
+      "rows": [
+        {
+          "theme": "Citrini",
+          "tickers": "LASR"
+        }
+      ]
+    },
+    "s3": {
+      "number": "03",
+      "title": "Watchlist",
+      "subtitle": "Wait for dip",
+      "badges": [
+        "Manual"
+      ],
+      "columns": [
+        {
+          "key": "theme",
+          "label": "Theme"
+        },
+        {
+          "key": "tickers",
+          "label": "Tickers"
+        },
+        {
+          "key": "priority",
+          "label": "Priority"
+        }
+      ],
+      "rows": [
+        {
+          "theme": "Space",
+          "tickers": "ASTS / RKLB / FLY",
+          "priority": "P2"
+        },
+        {
+          "theme": "Energy",
+          "tickers": "TE?",
+          "priority": "P3"
+        },
+        {
+          "theme": "Drones",
+          "tickers": "ONDS",
+          "priority": "P3"
+        },
+        {
+          "theme": "Robotics",
+          "tickers": "9880",
+          "priority": "P3"
+        },
+        {
+          "theme": "PM",
+          "tickers": "Gold / Copper / URA",
+          "priority": "P2"
+        },
+        {
+          "theme": "Crypto",
+          "tickers": "CRCL",
+          "priority": "P3"
+        }
+      ]
+    },
+    "s4": {
+      "number": "04",
+      "title": "Scheduled Events",
+      "subtitle": "Market-wide macro",
+      "badges": [
+        "Auto"
+      ],
+      "sourceNote": "Imported from the legacy dashboard snapshot. Refresh manually when needed.",
+      "items": [
+        {
+          "id": "s4-0",
+          "date": "2026-03-06",
+          "label": "Mar 6",
+          "event": "Non-Farm Payrolls (Feb)",
+          "impact": "high"
+        },
+        {
+          "id": "s4-1",
+          "date": "2026-03-11",
+          "label": "Mar 11",
+          "event": "CPI Release (Feb) - 8:30 AM ET",
+          "impact": "high",
+          "timeSgt": "8:30 PM SGT"
+        },
+        {
+          "id": "s4-2",
+          "date": "2026-03-12",
+          "label": "Mar 12",
+          "event": "PPI Release (Feb)",
+          "impact": "medium"
+        },
+        {
+          "id": "s4-3",
+          "date": "2026-03-14",
+          "label": "Mar 14",
+          "event": "UMich Consumer Sentiment (Prelim)",
+          "impact": "medium"
+        },
+        {
+          "id": "s4-4",
+          "date": "2026-03-16",
+          "label": "Mar 16",
+          "event": "Industrial Production",
+          "impact": "low"
+        },
+        {
+          "id": "s4-5",
+          "date": "2026-03-17",
+          "label": "Mar 17-18",
+          "event": "FOMC Meeting + Press Conference + SEP/Dot Plot",
+          "impact": "high"
+        },
+        {
+          "id": "s4-6",
+          "date": "2026-03-20",
+          "label": "Mar 20",
+          "event": "Philly Fed Manufacturing Index",
+          "impact": "low"
+        },
+        {
+          "id": "s4-7",
+          "date": "2026-03-25",
+          "label": "Mar 25",
+          "event": "Consumer Confidence (Mar)",
+          "impact": "medium"
+        },
+        {
+          "id": "s4-8",
+          "date": "2026-03-27",
+          "label": "Mar 27",
+          "event": "GDP (Q4 Final)",
+          "impact": "medium"
+        },
+        {
+          "id": "s4-9",
+          "date": "2026-03-28",
+          "label": "Mar 28",
+          "event": "PCE Price Index (Feb) - Fed preferred inflation gauge",
+          "impact": "high"
+        },
+        {
+          "id": "s4-10",
+          "date": "2026-05-06",
+          "label": "May 6-7",
+          "event": "FOMC Meeting",
+          "impact": "high"
+        }
+      ]
+    },
+    "s5": {
+      "number": "05",
+      "title": "Scheduled Events",
+      "subtitle": "Ticker-specific",
+      "badges": [
+        "Auto"
+      ],
+      "sourceNote": "Derived from the legacy watchlist-driven event section.",
+      "items": [
+        {
+          "id": "s5-0",
+          "date": "2026-03-07",
+          "label": "Mar 7",
+          "event": "Samsung Electronics - Q4 2025 Guidance / Outlook Update",
+          "tickers": "Samsung",
+          "impact": "medium"
+        },
+        {
+          "id": "s5-1",
+          "date": "2026-03-18",
+          "label": "Mar 18",
+          "event": "Micron (MU) FQ2 2026 Earnings - 4:30 PM ET",
+          "tickers": "Micron",
+          "impact": "high",
+          "timeSgt": "4:30 AM SGT"
+        },
+        {
+          "id": "s5-2",
+          "date": "2026-05-11",
+          "label": "May 11",
+          "event": "AST SpaceMobile (ASTS) Q1 2026 Earnings",
+          "tickers": "ASTS",
+          "impact": "medium"
+        },
+        {
+          "id": "s5-3",
+          "date": "2026-03-02",
+          "label": "Mar 2 done",
+          "event": "ASTS Q4 2025 - EPS -$0.26 (missed -$0.19). Revenue guided ~$1B in 2027.",
+          "tickers": "ASTS",
+          "impact": "low"
+        },
+        {
+          "id": "s5-4",
+          "date": null,
+          "label": "Q4 2026",
+          "event": "Rocket Lab Neutron first launch target (delayed from H1)",
+          "tickers": "RKLB",
+          "impact": "high"
+        },
+        {
+          "id": "s5-5",
+          "date": null,
+          "label": "Ongoing",
+          "event": "SK Hynix HBM4 shipping Q4 2026 - all DRAM/HBM/NAND sold out through 2026",
+          "tickers": "Hynix",
+          "impact": "medium"
+        },
+        {
+          "id": "s5-6",
+          "date": null,
+          "label": "Ongoing",
+          "event": "Memory supercycle - AI-driven HBM demand tightening supply",
+          "tickers": "Memory",
+          "impact": "high"
+        },
+        {
+          "id": "s5-7",
+          "date": null,
+          "label": "Ongoing",
+          "event": "Gold elevated amid geopolitical risk; copper rising with AI data center buildout",
+          "tickers": "Gold / Copper",
+          "impact": "medium"
+        }
+      ]
+    },
+    "s6": {
+      "number": "06",
+      "title": "Potential Events",
+      "subtitle": "Tail risks and prediction-market context",
+      "badges": [
+        "Auto"
+      ],
+      "sourceNote": "Legacy Polymarket-style tail-risk list preserved as initial seed data.",
+      "items": [
+        {
+          "id": "s6-0",
+          "event": "US Recession by End of 2026",
+          "odds": "23%",
+          "link": "https://polymarket.com/event/us-recession-2026",
+          "trend": "up"
+        },
+        {
+          "id": "s6-1",
+          "event": "US-Iran War Escalation / Continued Strikes",
+          "odds": "Active",
+          "link": "https://polymarket.com/geopolitics",
+          "trend": "up",
+          "note": "US/Israel struck Iran Feb 28. Khamenei killed. Retaliation ongoing."
+        },
+        {
+          "id": "s6-2",
+          "event": "Fed Rate Hike in 2026",
+          "odds": "11%",
+          "link": "https://polymarket.com/dashboards/macro",
+          "trend": "flat"
+        },
+        {
+          "id": "s6-3",
+          "event": "Russia-Ukraine Ceasefire by Mar 31",
+          "odds": "4%",
+          "link": "https://polymarket.com/predictions/macro-geopolitics",
+          "trend": "down"
+        },
+        {
+          "id": "s6-4",
+          "event": "US Invade Latin American Country in 2026",
+          "odds": "25%",
+          "link": "https://polymarket.com/geopolitics",
+          "trend": "flat",
+          "note": "Post-Maduro capture, ongoing Venezuela situation."
+        },
+        {
+          "id": "s6-5",
+          "event": "Negative GDP Growth in 2026",
+          "odds": "10%",
+          "link": "https://polymarket.com/dashboards/macro",
+          "trend": "flat"
+        },
+        {
+          "id": "s6-6",
+          "event": "Xi Jinping Out Before 2027",
+          "odds": "9%",
+          "link": "https://polymarket.com/predictions/macro-geopolitics",
+          "trend": "flat"
+        },
+        {
+          "id": "s6-7",
+          "event": "Trump Tariff Escalation / Trade War Widening",
+          "odds": "---",
+          "link": "https://polymarket.com",
+          "trend": "up",
+          "note": "Ongoing tariff actions. Watch for China retaliation."
+        }
+      ]
+    },
+    "s8": {
+      "number": "08",
+      "title": "PBOC Gold Reserves",
+      "subtitle": "China central bank monthly purchases",
+      "badges": [
+        "Auto"
+      ],
+      "sourceNote": "Imported from the legacy SAFE/PBOC panel.",
+      "summary": {
+        "latestReserves": "2309.0t",
+        "ytdChange": "+2.1t",
+        "buyingStreak": "6 mo"
+      },
+      "items": [
+        {
+          "id": "s8-0",
+          "month": "Feb 2026",
+          "date": "2026-02-28",
+          "tonnesDisplay": "+0.9t",
+          "totalReservesDisplay": "2309.0t",
+          "status": "bought"
+        },
+        {
+          "id": "s8-1",
+          "month": "Jan 2026",
+          "date": "2026-01-31",
+          "tonnesDisplay": "+1.2t",
+          "totalReservesDisplay": "2308.0t",
+          "status": "bought"
+        },
+        {
+          "id": "s8-2",
+          "month": "Dec 2025",
+          "date": "2025-12-31",
+          "tonnesDisplay": "+0.9t",
+          "totalReservesDisplay": "2306.0t",
+          "status": "bought"
+        },
+        {
+          "id": "s8-3",
+          "month": "Nov 2025",
+          "date": "2025-11-30",
+          "tonnesDisplay": "+0.9t",
+          "totalReservesDisplay": "2305.0t",
+          "status": "bought"
+        },
+        {
+          "id": "s8-4",
+          "month": "Oct 2025",
+          "date": "2025-10-31",
+          "tonnesDisplay": "+0.9t",
+          "totalReservesDisplay": "2304.5t",
+          "status": "bought"
+        },
+        {
+          "id": "s8-5",
+          "month": "Sep 2025",
+          "date": "2025-09-30",
+          "tonnesDisplay": "+1.2t",
+          "totalReservesDisplay": "2303.0t",
+          "status": "bought"
+        }
+      ]
+    },
+    "notes": {
+      "number": "99",
+      "title": "Operating Notes",
+      "subtitle": "Human-maintained context for future sessions",
+      "badges": [
+        "Manual"
+      ],
+      "items": [
+        {
+          "title": "Architecture direction",
+          "body": "This dashboard now treats JSON files as the source of truth. Frontend rendering, manual content, and auto-refresh logic are intentionally separated."
+        },
+        {
+          "title": "Refresh policy",
+          "body": "No scheduled refresh is required. Manual refresh is the primary workflow, either by editing JSON and rerunning the script or by using the manual GitHub Action."
+        }
+      ]
+    }
+  }
+}
