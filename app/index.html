@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Dashboard</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Finance Dashboard</p>
+        <h1 id="dashboard-title">Loading dashboard...</h1>
+        <p id="dashboard-summary" class="hero-summary"></p>
+      </div>
+      <div class="hero-actions">
+        <button id="reload-button" type="button">Reload data</button>
+        <a id="manual-link" href="../data/manual.json" target="_blank" rel="noreferrer">Manual JSON</a>
+        <a id="auto-link" href="../data/auto.json" target="_blank" rel="noreferrer">Auto JSON</a>
+      </div>
+    </header>
+
+    <section class="meta-panel" id="meta-panel"></section>
+    <main id="app" class="dashboard-grid"></main>
+  </div>
+
+  <template id="empty-state-template">
+    <div class="empty-state">No items yet.</div>
+  </template>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
