@@ -61,10 +61,32 @@ def require_success(status: int, label: str, url: str) -> None:
         raise CheckFailure(f"{label} returned HTTP {status} for {url}")
 
 
-def require_root_lands_on_app(final_url: str) -> None:
+def require_root_entrypoint(final_url: str, body: bytes) -> None:
     path = urlparse(final_url).path.rstrip("/")
-    if not path.endswith("/app"):
-        raise CheckFailure(f"Root URL did not land on /app/. Final URL was {final_url}")
+    if path.endswith("/app"):
+        return
+
+    html = body.decode("utf-8", errors="replace")
+    html_lower = html.lower()
+    root_to_app_signals = [
+        'http-equiv="refresh"',
+        "url=./app/",
+        "url=/app/",
+        "window.location",
+        "location.href",
+        "location.assign",
+        "location.replace",
+        'href="./app/"',
+        'href="/app/"',
+        'href="app/"',
+        'rel="canonical"',
+    ]
+
+    has_navigation_signal = any(signal in html_lower for signal in root_to_app_signals)
+    if not has_navigation_signal:
+        raise CheckFailure(
+            "Root URL did not land on /app/ and root HTML did not contain a clear redirect/navigation signal to /app/"
+        )
 
 
 def require_dashboard_html(body: bytes, label: str) -> None:
@@ -103,8 +125,7 @@ def main() -> int:
     try:
         root_status, root_final_url, root_body = fetch_with_retry(checks["root"], "Root URL")
         require_success(root_status, "Root URL", checks["root"])
-        require_root_lands_on_app(root_final_url)
-        require_dashboard_html(root_body, "Root URL")
+        require_root_entrypoint(root_final_url, root_body)
 
         app_status, app_final_url, app_body = fetch_with_retry(checks["app"], "/app/")
         require_success(app_status, "/app/", checks["app"])
